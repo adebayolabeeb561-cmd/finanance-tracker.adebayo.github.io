@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FinanceTracker</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Layout: <aside> sidebar + <main> content. CSS grid (see style.css) puts them side by side. -->
+    <aside id="sidebar">
+        <p class="logo">👛 Finance<span>Tracker</span></p>
+        <nav>
+            <a href="#" class="active">🏠 Dashboard</a>
+            <a href="#">☰ Transactions</a>
+            <a href="#">📊 Reports</a>
+            <a href="#">⚙ Settings</a>
+        </nav>
+        <p class="quote">“Small steps make big wealth.”</p>
+    </aside>
+
+    <main>
+        <header>
+            <div>
+                <!-- JS fills the greeting and date so they are always current -->
+                <h1 id="greeting"></h1>
+                <h3>Track your money. Build your future.</h3>
+            </div>
+            <p id="today"></p>
+        </header>
+
+        <!-- Summary cards: JS writes the numbers, calculated from the transactions array -->
+        <section id="bugdet">
+            <div id="income"><h3 id="totalincome">Total Income</h3><p id="incomeAmount" class="amount">₦0</p></div>
+            <div id="expense"><h3 id="total">Total Expenses</h3><p id="expenseAmount" class="amount">₦0</p></div>
+            <div id="Balance"><h3 id="totalbalance">Balance</h3><p id="balanceAmount" class="amount">₦0</p></div>
+            <div id="Transanction"><h3>This Month</h3><p id="transact" class="amount"></p></div>
+        </section>
+
+        <div id="panels">
+            <div class="col">
+                <section class="panel">
+                    <h2>Income vs Expenses <small>(last 7 days)</small></h2>
+                    <p class="legend"><span class="dot" style="background:#22c55e"></span> Income
+                       <span class="dot" style="background:#ef4444"></span> Expenses</p>
+                    <svg id="lineChart" viewBox="0 0 400 160" role="img" aria-label="Income and expenses over the last 7 days"></svg>
+                </section>
+
+                <section class="panel">
+                    <h2 id="transanctionFr">Recent Transactions</h2>
+                    <p id="emptyMessage">No transactions yet. Add your first one.</p>
+                    <div class="scroll">
+                        <table>
+                            <thead><tr><th>Date</th><th>Description</th><th>Category</th><th>Type</th><th>Amount</th><th></th></tr></thead>
+                            <tbody id="transactionList"></tbody>
+                        </table>
+                    </div>
+                </section>
+            </div>
+
+            <div class="col">
+                <section class="panel">
+                    <h2 id="spendtn">Spending by Category</h2>
+                    <div id="donutRow">
+                        <div id="donut"><p id="donutTotal"></p></div>
+                        <ul id="spendingTotal"></ul>
+                    </div>
+                </section>
+
+                <form id="additional" class="panel">
+                    <h2>➕ Add Transaction</h2>
+                    <!-- Toggle buttons replace the old Type dropdown; aria-pressed tells screen readers which is active -->
+                    <div id="typeToggle">
+                        <button type="button" data-type="income" aria-pressed="true" class="on">Income</button>
+                        <button type="button" data-type="expense" aria-pressed="false">Expense</button>
+                    </div>
+                    <label for="descriptionIn">Description</label>
+                    <input type="text" id="descriptionIn" placeholder="e.g. Food, Transport, Salary...">
+                    <label for="category">Category</label>
+                    <select id="category"></select>
+                    <label for="input">Amount</label>
+                    <input type="number" id="input" placeholder="Enter amount" min="0" step="any">
+                    <button type="submit" id="TransactionBtn">Add Transaction</button>
+                    <p id="error" aria-live="polite"></p>
+                </form>
+
+                <section class="panel">
+                    <h2>Filter Transactions</h2>
+                    <select id="filter" aria-label="Filter by category"></select>
+                </section>
+            </div>
+        </div>
+    </main>
+    <script src="index.js"></script>
+</body>
+</html>
